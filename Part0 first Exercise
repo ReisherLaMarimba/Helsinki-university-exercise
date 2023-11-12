@@ -1,0 +1,34 @@
+sequenceDiagram
+    participant browser
+    participant server
+    
+    
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate server
+    server-->>browser: HTML document with the form and button save
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: the css file with container and notes styles
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: the JavaScript file
+    deactivate server
+
+    Note right of browser: The browser starts executing reloading page to load the notes with the new one
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: [{ "content": "Exercise 0.5", "date": "2023-11-11T23:44:57.281Z" }, ... ]
+    deactivate server
+
+    Note right of browser: The browser executes the callback function that renders the notes
+
+    browser->>server: GET https://studies.cs.helsinki.fi/favicon.ico
+    activate server
+    server-->>browser: 404 Not found seems like there's not favicon anymore
+    Note left of server: the page couldnt find the favicon
+    deactivate server
